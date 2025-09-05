@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Taller Mecánico{% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h1 class="mb-4">Ingenieria Automotriz</h1>
+    
+    <!-- Logotipo centrado -->
+    {% load static %}
+    <img src="{% static 'vehiculos/images/logo.png' %}" alt="Logotipo" class="img-fluid mb-4">
+
+
+    <div class="d-grid gap-3 col-6 mx-auto">
+        <a href="{% url 'buscar_vehiculo' %}" class="btn btn-primary btn-lg">Buscar Vehículo</a>
+        <a href="{% url 'generar_presupuestos' %}" class="btn btn-success btn-lg">Generar Presupuestos</a>
+    </div>
+</div>
+
+{% endblock %}

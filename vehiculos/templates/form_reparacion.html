@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ accion }} Reparación{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ accion }} Reparación - {{ vehiculo.marca }} {{ vehiculo.modelo }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_tipo_reparacion" class="form-label">Tipo de Reparación</label>
+            <input type="text" name="tipo_reparacion" id="id_tipo_reparacion" class="form-control" list="tipos" 
+                value="{{ form.tipo_reparacion.value|default_if_none:'' }}">
+            <datalist id="tipos">
+                {% for tipo in tipos_existentes %}
+                    <option value="{{ tipo }}">
+                {% endfor %}
+            </datalist>
+        </div>
+
+        <div class="mb-3">
+            {{ form.descripcion_trabajo.label_tag }}
+            {{ form.descripcion_trabajo }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.costo_piezas.label_tag }}
+            {{ form.costo_piezas }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.costo_mano_obra.label_tag }}
+            {{ form.costo_mano_obra }}
+        </div>
+
+        <button type="submit" class="btn btn-success">{{ accion }}</button>
+        <a href="{% url 'detalle_vehiculo' vehiculo.id %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+</div>
+{% endblock %}

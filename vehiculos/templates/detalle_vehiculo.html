@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Historial de Reparaciones{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ vehiculo.marca }} {{ vehiculo.modelo }} ({{ vehiculo.placa }})</h1>
+    <p><strong>Cliente:</strong> {{ vehiculo.nombre_cliente }}</p>
+
+    <div class="mb-3">
+        <a href="{% url 'agregar_reparacion' vehiculo.id %}" class="btn btn-success">Agregar Reparación</a>
+        <a href="{% url 'editar_vehiculo' vehiculo.id %}" class="btn btn-warning">Editar Vehículo</a>
+        <a href="{% url 'buscar_vehiculo' %}" class="btn btn-secondary">Volver</a>
+    </div>
+
+    {% if historiales %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Tipo de Reparación</th>
+                    <th>Descripción</th>
+                    <th>Costo Piezas</th>
+                    <th>Costo Mano de Obra</th>
+                    <th>Total</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in historiales %}
+                <tr>
+                    <td>{{ h.fecha }}</td>
+                    <td>{{ h.tipo_reparacion }}</td>
+                    <td>{{ h.descripcion_trabajo }}</td>
+                    <td>{{ h.costo_piezas }}</td>
+                    <td>{{ h.costo_mano_obra }}</td>
+                    <td>{{ h.costo_total }}</td>
+                    <td>
+                        <a href="{% url 'editar_reparacion' h.id %}" class="btn btn-sm btn-primary">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No hay reparaciones registradas.</p>
+    {% endif %}
+</div>
+{% endblock %}
